@@ -307,15 +307,15 @@ sdist = { url = "https://files.pythonhosted.org/packages/3e/38/7859ff46355f76f8d
 
 [[package]]
 name = "anyio"
-version = "4.13.0"
+version = "4.14.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "idna" },
     { name = "typing-extensions", marker = "python_full_version < '3.13'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/19/14/2c5dd9f512b66549ae92767a9c7b330ae88e1932ca57876909410251fe13/anyio-4.13.0.tar.gz", hash = "sha256:334b70e641fd2221c1505b3890c69882fe4a2df910cba14d97019b90b24439dc", size = 231622, upload-time = "2026-03-24T12:59:09.671Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/61/cc/a381afa6efea9f496eff839d4a6a1aed3bfafc7b3ab4b0d1b243a12573dd/anyio-4.14.2.tar.gz", hash = "sha256:cfa139f3ed1a23ee8f88a145ddb5ac7605b8bbfd8592baacd7ce3d8bb4313c7f", size = 260176, upload-time = "2026-07-12T20:29:07.082Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/da/42/e921fccf5015463e32a3cf6ee7f980a6ed0f395ceeaa45060b61d86486c2/anyio-4.13.0-py3-none-any.whl", hash = "sha256:08b310f9e24a9594186fd75b4f73f4a4152069e3853f1ed8bfbf58369f4ad708", size = 114353, upload-time = "2026-03-24T12:59:08.246Z" },
+    { url = "https://files.pythonhosted.org/packages/da/35/f2287558c17e29fafc8ef3daf819bb9834061cfa43bff8014f7df7f63bdc/anyio-4.14.2-py3-none-any.whl", hash = "sha256:9f505dda5ac9f0c8309b5e8bd445a8c2bf7246f3ce950121e45ea15bc41d1494", size = 125813, upload-time = "2026-07-12T20:29:05.763Z" },
 ]
 
 [[package]]
@@ -443,9 +443,9 @@ name = "aws-sdk-transcribe-streaming"
 version = "0.6.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "smithy-aws-core", extra = ["eventstream", "json"], marker = "python_full_version >= '3.12'" },
-    { name = "smithy-core", marker = "python_full_version >= '3.12'" },
-    { name = "smithy-http", extra = ["awscrt"], marker = "python_full_version >= '3.12'" },
+    { name = "smithy-aws-core", extra = ["eventstream", "json"] },
+    { name = "smithy-core" },
+    { name = "smithy-http", extra = ["awscrt"] },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/9f/3a/53c77a72c268b176ea1b771a08b8548c833263cba95d032501acd84d9700/aws_sdk_transcribe_streaming-0.6.0.tar.gz", hash = "sha256:ac7b2fd83c77dac30b807c87d6334fbb968f6a3710928ac1b6faa5a37cb00d1a", size = 456935, upload-time = "2026-05-05T18:04:21.146Z" }
 wheels = [
@@ -820,7 +820,7 @@ name = "cuda-bindings"
 version = "13.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "cuda-pathfinder", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
+    { name = "cuda-pathfinder" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/51/6b/457ca12dad3ee9bfcc9a545cfd6b64b359ba49de40f776f6e028e678f262/cuda_bindings-13.3.1-cp311-cp311-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:c5879712accf6e14bb01aa5e67440eb84998b8d104b509cc7a6dc0b8f656a474", size = 6053539, upload-time = "2026-05-29T23:11:43.19Z" },
@@ -853,34 +853,34 @@ wheels = [
 
 [package.optional-dependencies]
 cudart = [
-    { name = "nvidia-cuda-runtime", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cuda-runtime" },
 ]
 cufft = [
-    { name = "nvidia-cufft", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cufft" },
 ]
 cufile = [
-    { name = "nvidia-cufile", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cufile" },
 ]
 cupti = [
-    { name = "nvidia-cuda-cupti", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cuda-cupti" },
 ]
 curand = [
-    { name = "nvidia-curand", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-curand" },
 ]
 cusolver = [
-    { name = "nvidia-cusolver", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cusolver" },
 ]
 cusparse = [
-    { name = "nvidia-cusparse", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cusparse" },
 ]
 nvjitlink = [
-    { name = "nvidia-nvjitlink", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-nvjitlink" },
 ]
 nvrtc = [
-    { name = "nvidia-cuda-nvrtc", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cuda-nvrtc" },
 ]
 nvtx = [
-    { name = "nvidia-nvtx", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-nvtx" },
 ]
 
 [[package]]
@@ -3219,7 +3219,7 @@ name = "nvidia-cublas"
 version = "13.1.1.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-cuda-nvrtc", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
+    { name = "nvidia-cuda-nvrtc" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a7/a1/0bd24ee8c8d03adac032fd2909426a00c88f8c57961b1277ded97f91119f/nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:b7a210458267ac818974c53038fbec2e969d5c99f305ab15c72522fa9f001dd5", size = 542848918, upload-time = "2026-04-08T18:46:22.985Z" },
@@ -3258,7 +3258,7 @@ name = "nvidia-cudnn-cu13"
 version = "9.20.0.48"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-cublas", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
+    { name = "nvidia-cublas" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/56/c5/83384d846b2fd17c44bd499b36c75a45ed4f095fbbb2252294e89cea5c5c/nvidia_cudnn_cu13-9.20.0.48-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:e31454ae00094b0c55319d9d15b6fa2fc50a9e1c0f5c8c80fb75258234e731e1", size = 444574296, upload-time = "2026-03-09T19:28:27.751Z" },
@@ -3270,7 +3270,7 @@ name = "nvidia-cufft"
 version = "12.0.0.61"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-nvjitlink", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
+    { name = "nvidia-nvjitlink" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8b/ae/f417a75c0259e85c1d2f83ca4e960289a5f814ed0cea74d18c353d3e989d/nvidia_cufft-12.0.0.61-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:2708c852ef8cd89d1d2068bdbece0aa188813a0c934db3779b9b1faa8442e5f5", size = 214053554, upload-time = "2025-09-04T08:31:38.196Z" },
@@ -3300,9 +3300,9 @@ name = "nvidia-cusolver"
 version = "12.0.4.66"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-cublas", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
-    { name = "nvidia-cusparse", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
-    { name = "nvidia-nvjitlink", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
+    { name = "nvidia-cublas" },
+    { name = "nvidia-cusparse" },
+    { name = "nvidia-nvjitlink" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c8/c3/b30c9e935fc01e3da443ec0116ed1b2a009bb867f5324d3f2d7e533e776b/nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:02c2457eaa9e39de20f880f4bd8820e6a1cfb9f9a34f820eb12a155aa5bc92d2", size = 223467760, upload-time = "2025-09-04T08:33:04.222Z" },
@@ -3314,7 +3314,7 @@ name = "nvidia-cusparse"
 version = "12.6.3.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-nvjitlink", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
+    { name = "nvidia-nvjitlink" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f8/94/5c26f33738ae35276672f12615a64bd008ed5be6d1ebcb23579285d960a9/nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:80bcc4662f23f1054ee334a15c72b8940402975e0eab63178fc7e670aa59472c", size = 162155568, upload-time = "2025-09-04T08:33:42.864Z" },
@@ -3685,7 +3685,7 @@ name = "pexpect"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "ptyprocess", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
+    { name = "ptyprocess" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/42/92/cc564bf6381ff43ce1f4d06852fc19a2f11d180f23dc32d9588bee2f149d/pexpect-4.9.0.tar.gz", hash = "sha256:ee7d41123f3c9911050ea2c2dac107568dc43b2d3b0c7557a33212c398ead30f", size = 166450, upload-time = "2023-11-25T09:07:26.339Z" }
 wheels = [
@@ -4962,9 +4962,9 @@ name = "smithy-aws-core"
 version = "0.6.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "aws-sdk-signers", marker = "python_full_version >= '3.12'" },
-    { name = "smithy-core", marker = "python_full_version >= '3.12'" },
-    { name = "smithy-http", marker = "python_full_version >= '3.12'" },
+    { name = "aws-sdk-signers" },
+    { name = "smithy-core" },
+    { name = "smithy-http" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/48/80/61dc9d5e948b8a0b050fa197d87bc6581f5d6d7d637ad0f61f15776b97e4/smithy_aws_core-0.6.0.tar.gz", hash = "sha256:592eba5fd09b60dde4d5a3d78273b9e9afad4a173fca4de8d77f9139108277a0", size = 15524, upload-time = "2026-05-05T18:04:15.41Z" }
 wheels = [
@@ -4973,10 +4973,10 @@ wheels = [
 
 [package.optional-dependencies]
 eventstream = [
-    { name = "smithy-aws-event-stream", marker = "python_full_version >= '3.12'" },
+    { name = "smithy-aws-event-stream" },
 ]
 json = [
-    { name = "smithy-json", marker = "python_full_version >= '3.12'" },
+    { name = "smithy-json" },
 ]
 
 [[package]]
@@ -4984,7 +4984,7 @@ name = "smithy-aws-event-stream"
 version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "smithy-core", marker = "python_full_version >= '3.12'" },
+    { name = "smithy-core" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/38/0e/6efb3a4ed92c0f1ada6de060ac92e7115a1e34d0ab1fb99a6056734a88ea/smithy_aws_event_stream-0.3.0.tar.gz", hash = "sha256:a0e227367a973144e205a075d0a424f95c92f26656a1018d08900da2ae547c49", size = 12818, upload-time = "2026-05-05T18:04:14.317Z" }
 wheels = [
@@ -5005,7 +5005,7 @@ name = "smithy-http"
 version = "0.4.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "smithy-core", marker = "python_full_version >= '3.12'" },
+    { name = "smithy-core" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/f6/18/7ebcea9ac9af3b5ca0af34747562c9f29d61bcd89e923dfffe6fc890e92e/smithy_http-0.4.1.tar.gz", hash = "sha256:f8a9ec156ac07ab9ced844de798ba8b8853ffe171c657908ffa61124384c087a", size = 29269, upload-time = "2026-05-21T17:02:22.996Z" }
 wheels = [
@@ -5014,7 +5014,7 @@ wheels = [
 
 [package.optional-dependencies]
 awscrt = [
-    { name = "awscrt", marker = "python_full_version >= '3.12'" },
+    { name = "awscrt" },
 ]
 
 [[package]]
@@ -5022,8 +5022,8 @@ name = "smithy-json"
 version = "0.2.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "ijson", marker = "python_full_version >= '3.12'" },
-    { name = "smithy-core", marker = "python_full_version >= '3.12'" },
+    { name = "ijson" },
+    { name = "smithy-core" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/67/50/5ea5bdb003e2d89afa6dfa8702208f2e61db56b4261656435aa15e176f55/smithy_json-0.2.2.tar.gz", hash = "sha256:e40f154455ebceb0552ef37310c5d0c297c6e6690087396adacf06fb170f59de", size = 7644, upload-time = "2026-04-07T19:24:15.136Z" }
 wheels = [
@@ -5195,8 +5195,8 @@ name = "standard-aifc"
 version = "3.13.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "audioop-lts", marker = "python_full_version >= '3.13'" },
-    { name = "standard-chunk", marker = "python_full_version >= '3.13'" },
+    { name = "audioop-lts" },
+    { name = "standard-chunk" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/c4/53/6050dc3dde1671eb3db592c13b55a8005e5040131f7509cef0215212cb84/standard_aifc-3.13.0.tar.gz", hash = "sha256:64e249c7cb4b3daf2fdba4e95721f811bde8bdfc43ad9f936589b7bb2fae2e43", size = 15240, upload-time = "2024-10-30T16:01:31.772Z" }
 wheels = [
@@ -5217,7 +5217,7 @@ name = "standard-sunau"
 version = "3.13.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "audioop-lts", marker = "python_full_version >= '3.13'" },
+    { name = "audioop-lts" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/66/e3/ce8d38cb2d70e05ffeddc28bb09bad77cfef979eb0a299c9117f7ed4e6a9/standard_sunau-3.13.0.tar.gz", hash = "sha256:b319a1ac95a09a2378a8442f403c66f4fd4b36616d6df6ae82b8e536ee790908", size = 9368, upload-time = "2024-10-30T16:01:41.626Z" }
 wheels = [
