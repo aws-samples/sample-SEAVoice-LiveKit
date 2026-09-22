@@ -1,0 +1,40 @@
+agent_name: chat-fil-agent
+
+# Filipino free-chat assistant over the Qwen3 SageMaker backends (OmniVoice TTS).
+# Deploy the endpoints first (sagemaker/deploy_qwen.py and sagemaker/deploy.py).
+
+preemptive_generation: true
+
+llm:
+  model: openai.gpt-oss-120b-1:0
+  region: us-west-2
+  reasoning_effort: low
+  persistent_connection: true
+  prewarm: true
+
+tts:
+  backend: omnivoice_sagemaker
+  endpoint_name: omnivoice-tts
+  region: us-west-2
+  language: Filipino
+  num_step: 16
+
+stt:
+  backend: qwen_sagemaker
+  endpoint_name: qwen3-asr
+  region: us-west-2
+  language: fil
+
+vad:
+  activation_threshold: 0.55
+  min_speech_duration: 0.08
+  min_silence_duration: 0.55
+
+prompt:
+  persona: |
+    Ikaw ay isang voice assistant na nagsasalita ng Filipino.
+    Palaging sumagot sa Filipino, magalang at maikli, isa hanggang tatlong pangungusap.
+  voice_rules: |
+    Nakikipag-usap ka sa pamamagitan ng boses. Sundin ang mga tuntuning ito:
+    - Sumagot lamang sa payak na teksto, walang JSON, markdown, listahan, talahanayan, o emoji.
+    - Bigkasin ang mga numero nang natural sa Filipino.

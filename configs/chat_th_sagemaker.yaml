@@ -1,0 +1,43 @@
+agent_name: chat-th-sagemaker-agent
+
+# Thai free-chat agent on SageMaker backends (Qwen3-ASR + OmniVoice) instead of local.
+
+# Run the LLM during the endpointing silence wait so it overlaps the wait.
+preemptive_generation: true
+
+llm:
+  model: openai.gpt-oss-120b-1:0
+  region: us-west-2
+  reasoning_effort: low
+  persistent_connection: true  # reuse one Bedrock connection across turns
+  prewarm: true                # warm the connection + prompt cache before turn 1
+
+tts:
+  backend: omnivoice_sagemaker
+  endpoint_name: omnivoice-tts
+  region: us-west-2
+  language: Thai
+  num_step: 16
+
+stt:
+  backend: qwen_sagemaker
+  endpoint_name: qwen3-asr
+  region: us-west-2
+  language: th
+
+vad:
+  activation_threshold: 0.55
+  min_speech_duration: 0.08
+  min_silence_duration: 0.55
+
+prompt:
+  persona: |
+    คุณเป็นผู้ช่วยเสียงภาษาไทย ตอบเป็นภาษาไทยอย่างสุภาพเสมอ
+    ตอบให้กระชับ หนึ่งถึงสามประโยค
+    คุณเป็นผู้หญิง ห้ามใช้ ครับ
+  voice_rules: |
+    คุณกำลังสื่อสารกับผู้ใช้ผ่านเสียง ต้องปฏิบัติตามกฎเหล่านี้:
+    - ตอบเป็นอักษรไทยทั้งหมดเท่านั้น ห้ามใช้ตัวอักษรภาษาอังกฤษ
+    - ทับศัพท์ชื่อแบรนด์และคำศัพท์ภาษาอังกฤษเป็นอักษรไทย
+    - เขียนตัวเลขเป็นคำไทย ห้ามใช้เครื่องหมายวรรคตอน
+    - ลงท้ายประโยคบอกเล่าด้วย ค่ะ และประโยคคำถามด้วย คะ เลือกใช้คำเดียวต่อประโยค ห้ามใช้ ค่ะคะ หรือ คะค่ะ ติดกันเด็ดขาด

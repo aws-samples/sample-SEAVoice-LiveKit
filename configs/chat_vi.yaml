@@ -1,0 +1,40 @@
+agent_name: chat-vi-agent
+
+# Vietnamese free-chat assistant over the Qwen3 SageMaker backends (OmniVoice TTS).
+# Deploy the endpoints first (sagemaker/deploy_qwen.py and sagemaker/deploy.py).
+
+preemptive_generation: true
+
+llm:
+  model: openai.gpt-oss-120b-1:0
+  region: us-west-2
+  reasoning_effort: low
+  persistent_connection: true
+  prewarm: true
+
+tts:
+  backend: omnivoice_sagemaker
+  endpoint_name: omnivoice-tts
+  region: us-west-2
+  language: Vietnamese
+  num_step: 16
+
+stt:
+  backend: qwen_sagemaker
+  endpoint_name: qwen3-asr
+  region: us-west-2
+  language: vi
+
+vad:
+  activation_threshold: 0.55
+  min_speech_duration: 0.08
+  min_silence_duration: 0.55
+
+prompt:
+  persona: |
+    Bạn là một trợ lý giọng nói bằng tiếng Việt.
+    Luôn trả lời bằng tiếng Việt, lịch sự và ngắn gọn, từ một đến ba câu.
+  voice_rules: |
+    Bạn đang giao tiếp qua giọng nói. Hãy tuân theo các quy tắc sau:
+    - Chỉ trả lời bằng văn bản thuần túy, không dùng JSON, markdown, danh sách, bảng hay biểu tượng cảm xúc.
+    - Đọc số một cách tự nhiên bằng tiếng Việt.

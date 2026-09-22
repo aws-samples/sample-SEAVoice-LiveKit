@@ -1,0 +1,93 @@
+{
+  "name": "telco-intl",
+  "language": "multi",
+  "tools": [
+    {
+      "name": "check_balance",
+      "description": "Return the customer's outstanding bill balance and due date for the current billing cycle.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "description": "Customer identifier (4-digit number), e.g. '2749'."
+          }
+        },
+        "required": ["customer_id"]
+      }
+    },
+    {
+      "name": "check_plan",
+      "description": "Return the customer's current mobile plan name, monthly fee (THB), and included quota (voice minutes and data GB).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "description": "Customer identifier (4-digit number), e.g. '2749'."
+          }
+        },
+        "required": ["customer_id"]
+      }
+    },
+    {
+      "name": "check_usage",
+      "description": "Return the customer's month-to-date usage: voice minutes used and data GB consumed, plus remaining quota.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "description": "Customer identifier (4-digit number), e.g. '2749'."
+          }
+        },
+        "required": ["customer_id"]
+      }
+    },
+    {
+      "name": "open_ticket",
+      "description": "Open a support ticket with a short summary and a category. Returns the new ticket id.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "description": "Customer identifier (4-digit number), e.g. '2749'."
+          },
+          "category": {
+            "type": "string",
+            "enum": ["billing", "network", "device", "plan_change", "other"],
+            "description": "Issue category."
+          },
+          "summary": {
+            "type": "string",
+            "description": "One-sentence summary of the issue, in the customer's language."
+          }
+        },
+        "required": ["customer_id", "category", "summary"]
+      }
+    }
+  ],
+  "fixtures": {
+    "customers": {
+      "2749": {"name": "Somying Jaidee", "phone": "0891234567", "plan_id": "P_GOLD_599"},
+      "5831": {"name": "Anucha Khayan", "phone": "0867654321", "plan_id": "P_SILVER_299"},
+      "6412": {"name": "Pimdao Pring", "phone": "0811112222", "plan_id": "P_UNLIMITED_899"}
+    },
+    "bills": {
+      "2749": {"amount_thb": 599, "due_date": "15 May 2026", "overdue": false},
+      "5831": {"amount_thb": 458, "due_date": "30 April 2026", "overdue": true},
+      "6412": {"amount_thb": 899, "due_date": "10 May 2026", "overdue": false}
+    },
+    "plans": {
+      "P_GOLD_599": {"name": "Gold 599", "monthly_fee_thb": 599, "data_gb": 30, "voice_minutes": 500},
+      "P_SILVER_299": {"name": "Silver 299", "monthly_fee_thb": 299, "data_gb": 10, "voice_minutes": 200},
+      "P_UNLIMITED_899": {"name": "Unlimited 899", "monthly_fee_thb": 899, "data_gb": 9999, "voice_minutes": 9999}
+    },
+    "usage_mtd": {
+      "2749": {"data_gb_used": 18.5, "voice_minutes_used": 124},
+      "5831": {"data_gb_used": 9.2, "voice_minutes_used": 189},
+      "6412": {"data_gb_used": 125.0, "voice_minutes_used": 321}
+    }
+  }
+}

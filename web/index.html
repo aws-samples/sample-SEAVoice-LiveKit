@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEAVoice Voice Agent</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #232f3e;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            padding: 14px 24px;
+            background: #232f3e;
+            border-bottom: 3px solid #ff9900;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #fff;
+        }
+        header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+        header h1 span { color: #ff9900; }
+        .status {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: #485769;
+            color: #ccc;
+        }
+        .status.connected { background: #0d7c3f; color: #fff; }
+        .status.disconnected { background: #cc0c39; color: #fff; }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .conversation-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+            background: #fff;
+        }
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-bottom: 16px;
+        }
+        .message {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        .message.user {
+            align-self: flex-end;
+            background: #232f3e;
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+        .message.agent {
+            align-self: flex-start;
+            background: #fff3e0;
+            color: #232f3e;
+            border: 1px solid #ffe0b2;
+            border-bottom-left-radius: 4px;
+        }
+        .message .label {
+            font-size: 11px;
+            opacity: 0.6;
+            margin-bottom: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metrics-panel {
+            width: 340px;
+            background: #fafafa;
+            border-left: 1px solid #e0e0e0;
+            padding: 20px;
+            overflow-y: auto;
+            font-size: 12px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+        .metrics-panel h2 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #232f3e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        .metric-label { color: #666; }
+        .metric-value { color: #232f3e; font-weight: 700; }
+        .metric-value.good { color: #0d7c3f; }
+        .metric-value.ok { color: #ff9900; }
+        .metric-value.slow { color: #cc0c39; }
+
+        .metrics-log {
+            margin-top: 16px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .metrics-log-entry {
+            padding: 4px 0;
+            border-bottom: 1px solid #eee;
+            color: #888;
+            word-wrap: break-word;
+            white-space: normal;
+            font-size: 11px;
+        }
+
+        .controls {
+            padding: 16px 24px;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+        .mic-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: none;
+            background: #ff9900;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(255, 153, 0, 0.3);
+        }
+        .mic-btn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(255, 153, 0, 0.4); }
+        .mic-btn.active { background: #0d7c3f; box-shadow: 0 2px 8px rgba(13, 124, 63, 0.3); animation: pulse 1.5s infinite; }
+        .mic-btn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; }
+
+        .agent-state {
+            font-size: 13px;
+            color: #aaa;
+            min-width: 120px;
+            text-align: center;
+        }
+        .agent-state .state {
+            font-weight: 700;
+            color: #ff9900;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(13, 124, 63, 0.3); }
+            50% { box-shadow: 0 0 0 12px rgba(13, 124, 63, 0); }
+        }
+
+        .visualizer {
+            width: 200px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span>SEAVoice</span> <span id="agent-name">Voice Agent</span></h1>
+        <span class="status disconnected" id="conn-status">Disconnected</span>
+        <div class="agent-state">Agent: <span class="state" id="agent-state">--</span></div>
+    </header>
+
+    <div class="main-content">
+        <div class="conversation-panel">
+            <div class="messages" id="messages"></div>
+        </div>
+        <div class="metrics-panel">
+            <h2>Pipeline Metrics</h2>
+            <div class="metric-row">
+                <span class="metric-label">STT</span>
+                <span class="metric-value" id="m-stt">--</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">LLM TTFT</span>
+                <span class="metric-value" id="m-llm-ttft">--</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">LLM Total</span>
+                <span class="metric-value" id="m-llm-total">--</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">TTS TTFB</span>
+                <span class="metric-value" id="m-tts-ttfb">--</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">TTS Total</span>
+                <span class="metric-value" id="m-tts-total">--</span>
+            </div>
+            <div class="metric-row" style="border-bottom: 2px solid #ff9900;">
+                <span class="metric-label">TTFA</span>
+                <span class="metric-value" id="m-ttfa">--</span>
+            </div>
+
+            <h2 style="margin-top: 16px;">Log</h2>
+            <div class="metrics-log" id="metrics-log"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="mic-btn" id="mic-btn" disabled>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5z"/>
+                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+            </svg>
+        </button>
+    </div>
+
+    <script type="module">
+        import {
+            Room,
+            RoomEvent,
+            Track,
+            ParticipantEvent,
+            DataPacket_Kind,
+        } from 'https://cdn.jsdelivr.net/npm/livekit-client@2/dist/livekit-client.esm.mjs';
+
+        const messagesEl = document.getElementById('messages');
+        const micBtn = document.getElementById('mic-btn');
+        const connStatus = document.getElementById('conn-status');
+        const agentStateEl = document.getElementById('agent-state');
+        const metricsLog = document.getElementById('metrics-log');
+
+        let room = null;
+        let connected = false;
+
+        function addMessage(text, role) {
+            const div = document.createElement('div');
+            div.className = `message ${role}`;
+            div.innerHTML = `<div class="label">${role === 'user' ? 'You' : 'Agent'}</div>${text}`;
+            messagesEl.appendChild(div);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+        }
+
+        function updateMetric(id, value, thresholdMs) {
+            const el = document.getElementById(id);
+            el.textContent = value;
+            el.className = 'metric-value';
+            if (thresholdMs !== undefined) {
+                const ms = parseFloat(value);
+                if (ms < thresholdMs * 0.5) el.classList.add('good');
+                else if (ms < thresholdMs) el.classList.add('ok');
+                else el.classList.add('slow');
+            }
+        }
+
+        function logMetric(text) {
+            const entry = document.createElement('div');
+            entry.className = 'metrics-log-entry';
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+            metricsLog.appendChild(entry);
+            metricsLog.scrollTop = metricsLog.scrollHeight;
+        }
+
+        async function getToken() {
+            const resp = await fetch(`${window.location.origin}/token`);
+            if (resp.ok) {
+                const data = await resp.json();
+                if (data.agent_name) {
+                    document.getElementById('agent-name').textContent = data.agent_name;
+                }
+                return data;
+            }
+            throw new Error('Could not get token. Make sure the token server is running.');
+        }
+
+        async function connect() {
+            room = new Room({
+                adaptiveStream: true,
+                dynacast: true,
+                rtcConfig: {
+                    iceTransportPolicy: 'relay',
+                },
+            });
+
+            room.on(RoomEvent.Connected, () => {
+                connected = true;
+                connStatus.textContent = 'Connected';
+                connStatus.className = 'status connected';
+                micBtn.disabled = false;
+                logMetric('Connected to room');
+            });
+
+            room.on(RoomEvent.Disconnected, () => {
+                connected = false;
+                connStatus.textContent = 'Disconnected';
+                connStatus.className = 'status disconnected';
+                micBtn.disabled = true;
+                micBtn.classList.remove('active');
+            });
+
+            room.on(RoomEvent.TranscriptionReceived, (segments, participant) => {
+                for (const segment of segments) {
+                    if (!segment.final) continue;
+                    const isAgent = participant?.identity?.includes('agent');
+                    if (segment.text.trim()) {
+                        addMessage(segment.text, isAgent ? 'agent' : 'user');
+                    }
+                }
+            });
+
+            room.on(RoomEvent.DataReceived, (payload, participant, kind, topic) => {
+                try {
+                    const data = JSON.parse(new TextDecoder().decode(payload));
+                    if (data.type === 'agent_state') {
+                        agentStateEl.textContent = data.state;
+                    } else if (data.type === 'metrics') {
+                        handleMetrics(data);
+                    }
+                } catch (e) {}
+            });
+
+            room.on(RoomEvent.TrackSubscribed, (track, publication, participant) => {
+                if (track.kind === Track.Kind.Audio) {
+                    const audioEl = track.attach();
+                    audioEl.id = `audio-${participant.identity}`;
+                    document.body.appendChild(audioEl);
+                    logMetric(`Audio track subscribed from ${participant.identity}`);
+                }
+            });
+
+            room.on(RoomEvent.TrackUnsubscribed, (track, publication, participant) => {
+                track.detach().forEach(el => el.remove());
+            });
+
+            room.on(RoomEvent.ParticipantAttributesChanged, (changed, participant) => {
+                if (participant?.identity?.includes('agent') && changed['lk.agent.state']) {
+                    const state = changed['lk.agent.state'];
+                    agentStateEl.textContent = state;
+                }
+            });
+
+            try {
+                const { token, url } = await getToken();
+                await room.connect(url, token);
+                await room.localParticipant.setMicrophoneEnabled(true);
+                micBtn.classList.add('active');
+            } catch (e) {
+                logMetric(`Error: ${e.message}`);
+                connStatus.textContent = 'Error';
+                connStatus.className = 'status disconnected';
+            }
+        }
+
+        function handleMetrics(data) {
+            if (data.stt) {
+                updateMetric('m-stt', `${data.stt}ms`, 500);
+                logMetric(`STT: ${data.stt}ms`);
+            }
+            if (data.llm_ttft) {
+                updateMetric('m-llm-ttft', `${data.llm_ttft}ms`, 1000);
+            }
+            if (data.llm_total) {
+                updateMetric('m-llm-total', `${data.llm_total}ms`, 3000);
+                logMetric(`LLM: ttft=${data.llm_ttft}ms total=${data.llm_total}ms`);
+            }
+            if (data.tts_ttfb) {
+                updateMetric('m-tts-ttfb', `${data.tts_ttfb}ms`, 2000);
+            }
+            if (data.tts_total) {
+                updateMetric('m-tts-total', `${data.tts_total}ms`, 5000);
+                logMetric(`TTS: ttfb=${data.tts_ttfb}ms total=${data.tts_total}ms`);
+            }
+            if (data.ttfa) {
+                updateMetric('m-ttfa', `${data.ttfa}ms`, 3000);
+                logMetric(`TTFA: ${data.ttfa}ms`);
+            }
+        }
+
+        micBtn.disabled = false;
+
+        micBtn.addEventListener('click', async () => {
+            if (!connected) {
+                await connect();
+            } else {
+                const enabled = room.localParticipant.isMicrophoneEnabled;
+                await room.localParticipant.setMicrophoneEnabled(!enabled);
+                micBtn.classList.toggle('active', !enabled);
+            }
+        });
+    </script>
+</body>
+</html>

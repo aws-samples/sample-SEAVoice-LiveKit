@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-starter-python"
+version = "1.0.0"
+description = "Simple voice AI assistant built with LiveKit Agents for Python"
+requires-python = ">=3.11, <3.15"
+classifiers = ["License :: OSI Approved :: Apache Software License"]
+
+dependencies = [
+    "boto3>=1.40.61",
+    "fastthaig2p[tts]",
+    "livekit-agents[silero,turn-detector]==1.5.12",
+    "livekit-api>=1.1.0",
+    "livekit-plugins-aws>=1.5.12",
+    "noisereduce>=3.0.3",
+    "pythainlp>=5.3.4",
+    "pyyaml>=6.0",
+    "python-dotenv",
+    "starlette>=1.2.1",
+    "typhoon-asr>=0.1.1",
+    "uvicorn>=0.48.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+]
+
+[tool.uv]
+# yarl 1.24.1 was published with only a cp310 wheel and no sdist, so it can't
+# install on Python 3.11+. Remove this once upstream uploads the remaining wheels.
+constraint-dependencies = ["yarl<1.24"]
+
+[tool.uv.sources]
+fastthaig2p = { git = "https://github.com/awslabs/FastThaiG2P.git" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "B", "A", "C4", "UP", "SIM", "RUF"]
+ignore = ["E501", "RUF001", "RUF002", "RUF003"]  # Line too long; ambiguous unicode (Thai chars)
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

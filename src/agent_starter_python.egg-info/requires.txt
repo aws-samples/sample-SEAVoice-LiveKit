@@ -1,0 +1,12 @@
+boto3>=1.40.61
+fastthaig2p[tts]
+livekit-agents[silero,turn-detector]==1.5.12
+livekit-api>=1.1.0
+livekit-plugins-aws>=1.5.12
+noisereduce>=3.0.3
+pythainlp>=5.3.4
+pyyaml>=6.0
+python-dotenv
+starlette>=1.2.1
+typhoon-asr>=0.1.1
+uvicorn>=0.48.0

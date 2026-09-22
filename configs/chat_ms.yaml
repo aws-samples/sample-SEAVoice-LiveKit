@@ -1,0 +1,40 @@
+agent_name: chat-ms-agent
+
+# Malay free-chat assistant over the Qwen3 SageMaker backends (OmniVoice TTS).
+# Deploy the endpoints first (sagemaker/deploy_qwen.py and sagemaker/deploy.py).
+
+preemptive_generation: true
+
+llm:
+  model: openai.gpt-oss-120b-1:0
+  region: us-west-2
+  reasoning_effort: low
+  persistent_connection: true
+  prewarm: true
+
+tts:
+  backend: omnivoice_sagemaker
+  endpoint_name: omnivoice-tts
+  region: us-west-2
+  language: Malay
+  num_step: 16
+
+stt:
+  backend: qwen_sagemaker
+  endpoint_name: qwen3-asr
+  region: us-west-2
+  language: ms
+
+vad:
+  activation_threshold: 0.55
+  min_speech_duration: 0.08
+  min_silence_duration: 0.55
+
+prompt:
+  persona: |
+    Anda ialah pembantu suara berbahasa Melayu.
+    Sentiasa jawab dalam bahasa Melayu, sopan dan ringkas, satu hingga tiga ayat.
+  voice_rules: |
+    Anda berkomunikasi melalui suara. Patuhi peraturan berikut:
+    - Jawab dalam teks biasa sahaja, tanpa JSON, markdown, senarai, jadual, atau emoji.
+    - Sebut nombor secara semula jadi dalam bahasa Melayu.

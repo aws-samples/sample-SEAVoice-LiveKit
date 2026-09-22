@@ -1,0 +1,242 @@
+[
+  {
+    "idx": 0,
+    "bucket": "greet",
+    "expected_tool": "",
+    "text": "สวัสดีค่ะ",
+    "path": "tests/fixtures/bench/00_greet.wav",
+    "duration_s": 1.67
+  },
+  {
+    "idx": 1,
+    "bucket": "greet",
+    "expected_tool": "",
+    "text": "สวัสดีครับ ขอบคุณที่รับสาย",
+    "path": "tests/fixtures/bench/01_greet.wav",
+    "duration_s": 2.88
+  },
+  {
+    "idx": 2,
+    "bucket": "greet",
+    "expected_tool": "",
+    "text": "อรุณสวัสดิ์ค่ะ",
+    "path": "tests/fixtures/bench/02_greet.wav",
+    "duration_s": 1.89
+  },
+  {
+    "idx": 3,
+    "bucket": "greet",
+    "expected_tool": "",
+    "text": "วันนี้อากาศดีนะคะ",
+    "path": "tests/fixtures/bench/03_greet.wav",
+    "duration_s": 2.16
+  },
+  {
+    "idx": 4,
+    "bucket": "greet",
+    "expected_tool": "",
+    "text": "ขอบคุณมากค่ะ",
+    "path": "tests/fixtures/bench/04_greet.wav",
+    "duration_s": 1.8
+  },
+  {
+    "idx": 5,
+    "bucket": "greet",
+    "expected_tool": "",
+    "text": "หวัดดีครับ มีอะไรให้ช่วยไหม",
+    "path": "tests/fixtures/bench/05_greet.wav",
+    "duration_s": 2.77
+  },
+  {
+    "idx": 6,
+    "bucket": "balance",
+    "expected_tool": "check_balance",
+    "text": "รหัสลูกค้า สองเจ็ดสี่เก้า อยากเช็คยอดค้างชำระค่ะ",
+    "path": "tests/fixtures/bench/06_balance.wav",
+    "duration_s": 5.6
+  },
+  {
+    "idx": 7,
+    "bucket": "balance",
+    "expected_tool": "check_balance",
+    "text": "ลูกค้าหมายเลข ห้าแปดสามหนึ่ง ขอดูยอดบิลหน่อยค่ะ",
+    "path": "tests/fixtures/bench/07_balance.wav",
+    "duration_s": 4.98
+  },
+  {
+    "idx": 8,
+    "bucket": "balance",
+    "expected_tool": "check_balance",
+    "text": "ช่วยเช็คบิลให้หน่อยค่ะ รหัส หกสี่หนึ่งสอง",
+    "path": "tests/fixtures/bench/08_balance.wav",
+    "duration_s": 4.23
+  },
+  {
+    "idx": 9,
+    "bucket": "balance",
+    "expected_tool": "check_balance",
+    "text": "สองเจ็ดสี่เก้า ค้างจ่ายเท่าไหร่คะ",
+    "path": "tests/fixtures/bench/09_balance.wav",
+    "duration_s": 3.49
+  },
+  {
+    "idx": 10,
+    "bucket": "balance",
+    "expected_tool": "check_balance",
+    "text": "ขอเช็คยอดค้างชำระ รหัส ห้าแปดสามหนึ่ง ค่ะ",
+    "path": "tests/fixtures/bench/10_balance.wav",
+    "duration_s": 4.71
+  },
+  {
+    "idx": 11,
+    "bucket": "balance",
+    "expected_tool": "check_balance",
+    "text": "หกสี่หนึ่งสอง มียอดค้างเท่าไหร่ครับ",
+    "path": "tests/fixtures/bench/11_balance.wav",
+    "duration_s": 3.28
+  },
+  {
+    "idx": 12,
+    "bucket": "plan",
+    "expected_tool": "check_plan",
+    "text": "อยากรู้ว่าแพ็กเกจของ สองเจ็ดสี่เก้า เป็นแบบไหนค่ะ",
+    "path": "tests/fixtures/bench/12_plan.wav",
+    "duration_s": 4.83
+  },
+  {
+    "idx": 13,
+    "bucket": "plan",
+    "expected_tool": "check_plan",
+    "text": "ช่วยดูแพ็กเกจของ ห้าแปดสามหนึ่ง ให้หน่อยค่ะ",
+    "path": "tests/fixtures/bench/13_plan.wav",
+    "duration_s": 4.91
+  },
+  {
+    "idx": 14,
+    "bucket": "plan",
+    "expected_tool": "check_plan",
+    "text": "หกสี่หนึ่งสอง ใช้แพลนอะไรอยู่คะ",
+    "path": "tests/fixtures/bench/14_plan.wav",
+    "duration_s": 3.06
+  },
+  {
+    "idx": 15,
+    "bucket": "plan",
+    "expected_tool": "check_plan",
+    "text": "ขอเช็คแพ็กเกจรายเดือนของรหัส สองเจ็ดสี่เก้า ค่ะ",
+    "path": "tests/fixtures/bench/15_plan.wav",
+    "duration_s": 4.93
+  },
+  {
+    "idx": 16,
+    "bucket": "plan",
+    "expected_tool": "check_plan",
+    "text": "ห้าแปดสามหนึ่ง สมัครแพ็กเกจอะไรไว้ครับ",
+    "path": "tests/fixtures/bench/16_plan.wav",
+    "duration_s": 3.8
+  },
+  {
+    "idx": 17,
+    "bucket": "plan",
+    "expected_tool": "check_plan",
+    "text": "ดูข้อมูลแพลนของลูกค้า หกสี่หนึ่งสอง ให้ด้วยค่ะ",
+    "path": "tests/fixtures/bench/17_plan.wav",
+    "duration_s": 4.89
+  },
+  {
+    "idx": 18,
+    "bucket": "usage",
+    "expected_tool": "check_usage",
+    "text": "เช็คยอดใช้งานของ สองเจ็ดสี่เก้า ให้หน่อยค่ะ",
+    "path": "tests/fixtures/bench/18_usage.wav",
+    "duration_s": 4.46
+  },
+  {
+    "idx": 19,
+    "bucket": "usage",
+    "expected_tool": "check_usage",
+    "text": "ห้าแปดสามหนึ่ง ใช้เน็ตไปเท่าไหร่แล้วคะ",
+    "path": "tests/fixtures/bench/19_usage.wav",
+    "duration_s": 4.15
+  },
+  {
+    "idx": 20,
+    "bucket": "usage",
+    "expected_tool": "check_usage",
+    "text": "อยากรู้ว่า หกสี่หนึ่งสอง ใช้งานไปเท่าไหร่แล้ว",
+    "path": "tests/fixtures/bench/20_usage.wav",
+    "duration_s": 4.69
+  },
+  {
+    "idx": 21,
+    "bucket": "usage",
+    "expected_tool": "check_usage",
+    "text": "ขอดูยอดใช้งานเดือนนี้ รหัส สองเจ็ดสี่เก้า ค่ะ",
+    "path": "tests/fixtures/bench/21_usage.wav",
+    "duration_s": 4.28
+  },
+  {
+    "idx": 22,
+    "bucket": "usage",
+    "expected_tool": "check_usage",
+    "text": "ห้าแปดสามหนึ่ง โทรไปกี่นาทีแล้วครับ",
+    "path": "tests/fixtures/bench/22_usage.wav",
+    "duration_s": 3.99
+  },
+  {
+    "idx": 23,
+    "bucket": "usage",
+    "expected_tool": "check_usage",
+    "text": "เหลือเน็ตเท่าไหร่คะ รหัส หกสี่หนึ่งสอง",
+    "path": "tests/fixtures/bench/23_usage.wav",
+    "duration_s": 3.65
+  },
+  {
+    "idx": 24,
+    "bucket": "ticket",
+    "expected_tool": "open_ticket",
+    "text": "ขอเปิดเคสให้ สองเจ็ดสี่เก้า เรื่องบิลผิดพลาดค่ะ",
+    "path": "tests/fixtures/bench/24_ticket.wav",
+    "duration_s": 5.06
+  },
+  {
+    "idx": 25,
+    "bucket": "ticket",
+    "expected_tool": "open_ticket",
+    "text": "ห้าแปดสามหนึ่ง อยากเปลี่ยนแพ็กเกจ ช่วยเปิดเคสให้ด้วยค่ะ",
+    "path": "tests/fixtures/bench/25_ticket.wav",
+    "duration_s": 6.1
+  },
+  {
+    "idx": 26,
+    "bucket": "ticket",
+    "expected_tool": "open_ticket",
+    "text": "เปิดเคสให้ หกสี่หนึ่งสอง เครื่องชาร์จไม่เข้าค่ะ",
+    "path": "tests/fixtures/bench/26_ticket.wav",
+    "duration_s": 4.95
+  },
+  {
+    "idx": 27,
+    "bucket": "ticket",
+    "expected_tool": "open_ticket",
+    "text": "สองเจ็ดสี่เก้า แจ้งปัญหาเน็ตช้ามาก ช่วยเปิดเคสด่วนค่ะ",
+    "path": "tests/fixtures/bench/27_ticket.wav",
+    "duration_s": 5.9
+  },
+  {
+    "idx": 28,
+    "bucket": "ticket",
+    "expected_tool": "open_ticket",
+    "text": "ลูกค้า ห้าแปดสามหนึ่ง ต้องการเปิดเคสเรื่องการชำระเงิน",
+    "path": "tests/fixtures/bench/28_ticket.wav",
+    "duration_s": 5.8
+  },
+  {
+    "idx": 29,
+    "bucket": "ticket",
+    "expected_tool": "open_ticket",
+    "text": "หกสี่หนึ่งสอง มีปัญหาสัญญาณหาย ขอเปิดเรื่องร้องเรียนค่ะ",
+    "path": "tests/fixtures/bench/29_ticket.wav",
+    "duration_s": 5.68
+  }
+]
